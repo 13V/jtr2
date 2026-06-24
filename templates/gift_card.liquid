@@ -1,0 +1,7 @@
+<section class="jtr-wrap" style="padding:80px 40px;min-height:60vh;text-align:center;max-width:560px;">
+  <img src="{{ 'jtr-logo.png' | asset_url }}" alt="{{ shop.name }}" style="height:70px;width:auto;margin:0 auto 30px;">
+  <div class="jtr-eyebrow" style="margin-bottom:14px;">Gift Card</div>
+  <div style="font-family:'Archivo Black',sans-serif;font-size:clamp(36px,7vw,64px);color:var(--accent,#d81222);margin-bottom:8px;">{{ gift_card.balance | money }}</div>
+  <p class="jtr-rte" style="margin-bottom:26px;">Use this code at checkout.</p>
+  <div style="display:inline-block;padding:16px 24px;border:1px dashed rgba(255,255,255,.3);font-family:'Space Mono',monospace;font-size:18px;letter-spacing:.2em;">{{ gift_card.code | format_code }}</div>
+</section>

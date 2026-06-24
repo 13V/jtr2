@@ -1,0 +1,52 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+<section class="jtr-wrap" style="padding:60px 40px;">
+  <div style="display:flex;align-items:center;gap:18px;margin-bottom:26px;">
+    <span style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#8a8a92;">{{ section.settings.eyebrow }}</span>
+    <span style="flex:1;height:1px;background:rgba(255,255,255,.1);"></span>
+    <span style="font-family:'Archivo Black',sans-serif;font-size:18px;text-transform:uppercase;">{{ section.settings.heading }}</span>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+    {%- for block in section.blocks -%}
+      {%- assign chip_class = 'jtr-chip' -%}
+      {%- if block.settings.filter == 'all' -%}{%- assign chip_class = 'jtr-chip jtr-active' -%}{%- endif -%}
+      <a href="{{ block.settings.url | default: '#drop' }}"
+         {% if block.settings.filter != blank %}data-filter="{{ block.settings.filter }}"{% endif %}
+         class="{{ chip_class }}" {{ block.shopify_attributes }}
+         style="padding:14px 22px;border:1px solid rgba(255,255,255,.16);font-family:'Archivo Black',sans-serif;font-size:15px;letter-spacing:.02em;color:#f4f3f1;">{{ block.settings.label }}</a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Chassis filter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by Chassis" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Know your code" }
+  ],
+  "blocks": [
+    {
+      "type": "chip",
+      "name": "Chip",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "R34" },
+        { "type": "text", "id": "filter", "label": "Filter tag(s)", "info": "Space-separated product tags this chip filters by (e.g. r34, or 's13 s14 s15'). Use 'all' for the reset chip. Leave blank to make it a plain link." },
+        { "type": "url", "id": "url", "label": "Link (used when no filter tag)" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "chip", "settings": { "label": "All", "filter": "all" } },
+      { "type": "chip", "settings": { "label": "R32", "filter": "r32" } },
+      { "type": "chip", "settings": { "label": "R33", "filter": "r33" } },
+      { "type": "chip", "settings": { "label": "R34", "filter": "r34" } },
+      { "type": "chip", "settings": { "label": "S13 / S14 / S15", "filter": "s13 s14 s15" } },
+      { "type": "chip", "settings": { "label": "AE86", "filter": "ae86" } },
+      { "type": "chip", "settings": { "label": "HSV / AUDM", "filter": "", "url": "#sale" } },
+      { "type": "chip", "settings": { "label": "TA22", "filter": "", "url": "#sale" } }
+    ]
+  },
+  "presets": [{ "name": "Chassis filter" }]
+}
+{% endschema %}

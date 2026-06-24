@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>{{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+
+    {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    {{ content_for_header }}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <style>
+      :root{ --accent: {{ settings.accent_color | default: '#d81222' }}; }
+      body{ background: {{ settings.bg_color | default: '#0a0a0b' }}; color: {{ settings.text_color | default: '#f4f3f1' }}; }
+    </style>
+
+    <script src="{{ 'app.js' | asset_url }}" defer="defer"></script>
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}">
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    <main id="MainContent" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+  </body>
+</html>

@@ -1,0 +1,11 @@
+<article class="jtr-wrap" style="padding:60px 40px 80px;max-width:820px;">
+  <div class="jtr-eyebrow" style="margin-bottom:14px;">{{ article.published_at | date: '%d %b %Y' }}</div>
+  <h1 style="margin:0 0 24px;font-family:'Archivo Black',sans-serif;font-size:clamp(30px,5vw,56px);line-height:.95;text-transform:uppercase;letter-spacing:-.02em;">{{ article.title }}</h1>
+  {%- if article.image -%}
+    <img src="{{ article.image | image_url: width: 1400 }}" alt="{{ article.title | escape }}" style="width:100%;border:1px solid rgba(255,255,255,.08);margin-bottom:30px;">
+  {%- endif -%}
+  <div class="jtr-rte">{{ article.content }}</div>
+  <div style="margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);">
+    <a href="{{ blog.url }}" class="jtr-link" style="color:var(--accent,#d81222);font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;">← Back to journal</a>
+  </div>
+</article>

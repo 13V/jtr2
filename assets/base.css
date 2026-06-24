@@ -1,0 +1,131 @@
+/* ============================================================
+   JT-R GARAGE — base theme styles
+   Ported from the JT-R Garage design system.
+   Accent colour is driven by --accent (set in theme.liquid
+   from Theme settings → Colors).
+   ============================================================ */
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;padding:0;
+  background:#0a0a0b;color:#f4f3f1;
+  font-family:'Archivo',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+::selection{background:var(--accent,#d81222);color:#0a0a0b;}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+
+/* ---------- layout helpers ---------- */
+.jtr-wrap{max-width:1320px;margin:0 auto;padding:0 40px;}
+.jtr-eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent,#d81222);}
+.jtr-h2{margin:0;font-family:'Archivo Black',sans-serif;font-size:clamp(38px,5.5vw,72px);line-height:.9;text-transform:uppercase;letter-spacing:-.02em;}
+.jtr-mono{font-family:'Space Mono',monospace;}
+
+/* ---------- keyframes ---------- */
+@keyframes jtr-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes jtr-cue{0%{transform:translateY(0);opacity:.2}50%{transform:translateY(8px);opacity:1}100%{transform:translateY(0);opacity:.2}}
+@keyframes jtr-grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-4%,-4%)}30%{transform:translate(3%,-2%)}50%{transform:translate(-2%,4%)}70%{transform:translate(4%,2%)}90%{transform:translate(-3%,3%)}}
+@keyframes jtr-streak{0%{transform:translateX(-130%);opacity:0}8%{opacity:.9}92%{opacity:.9}100%{transform:translateX(140%);opacity:0}}
+@keyframes jtr-glow{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.85;transform:scale(1.06)}}
+@keyframes jtr-rec{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes jtr-bg{0%{background-position:0 0}100%{background-position:54px 54px}}
+@keyframes jtr-ken{from{transform:scale(1.001)}to{transform:scale(1.09)}}
+
+/* ---------- reveal on scroll ---------- */
+.jtr-reveal{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);}
+.jtr-reveal.jtr-in{opacity:1;transform:none;}
+
+/* ---------- product cards ---------- */
+.jtr-pcard{transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;}
+.jtr-pcard .jtr-pb{opacity:0;transition:opacity .55s ease;}
+.jtr-pcard:hover .jtr-pb{opacity:1;}
+.jtr-pcard:hover .jtr-pa{opacity:0;}
+.jtr-pa,.jtr-pb{transition:opacity .55s ease,transform .9s cubic-bezier(.16,1,.3,1);}
+.jtr-pcard:hover .jtr-pa,.jtr-pcard:hover .jtr-pb{transform:scale(1.04);}
+.jtr-reveal.jtr-in.jtr-dim,.jtr-pcard.jtr-dim{opacity:.18;transform:scale(.94);filter:grayscale(.75) brightness(.72);}
+
+/* ---------- image zoom on feature cards ---------- */
+.jtr-grow{transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .6s ease;}
+.jtr-feat:hover .jtr-grow{transform:scale(1.05);}
+
+/* ---------- chassis chips ---------- */
+.jtr-chip{transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease;cursor:pointer;}
+.jtr-chip:hover{background:var(--accent,#d81222);color:#0a0a0b;border-color:var(--accent,#d81222);transform:translateY(-2px);}
+.jtr-chip.jtr-active{background:var(--accent,#d81222);color:#0a0a0b;border-color:var(--accent,#d81222);transform:translateY(-2px);}
+
+/* ---------- nav ---------- */
+.jtr-nav a{transition:color .2s ease;}
+.jtr-nav a:hover{color:#fff;}
+
+/* ---------- buttons ---------- */
+.jtr-btn-fill{transition:transform .25s ease,box-shadow .25s ease;cursor:pointer;}
+.jtr-btn-fill:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(216,18,34,.4);}
+.jtr-btn-ghost{transition:border-color .25s ease,color .25s ease,background .25s ease;cursor:pointer;}
+.jtr-btn-ghost:hover{border-color:#fff;color:#0a0a0b;background:#fff;}
+.jtr-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;background:var(--accent,#d81222);color:#0a0a0b;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;}
+
+/* ---------- chrome text (logo-style) ---------- */
+.jtr-chrome{background:linear-gradient(180deg,#ffffff 0%,#dcdcde 42%,#8d8d92 51%,#cdcdd1 60%,#f4f4f6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+
+/* ---------- arrow links ---------- */
+.jtr-link{transition:gap .25s ease,color .2s ease;}
+.jtr-link:hover{gap:14px;}
+
+/* ---------- social tiles ---------- */
+.jtr-tile .jtr-play{opacity:0;transition:opacity .4s ease,transform .55s cubic-bezier(.16,1,.3,1);}
+.jtr-tile:hover .jtr-play{opacity:1;transform:translate(-50%,-50%) scale(1.06);}
+.jtr-tile .jtr-meta{transform:translateY(6px);opacity:.85;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s ease;}
+.jtr-tile:hover .jtr-meta{transform:none;opacity:1;}
+.jtr-social-btn{transition:transform .25s ease,box-shadow .25s ease,background .25s ease,color .25s ease;}
+.jtr-social-btn:hover{transform:translateY(-3px);}
+
+.jtr-tilt{will-change:transform;transform-style:preserve-3d;}
+
+/* ---------- forms (cart / search / contact) ---------- */
+.jtr-field{width:100%;padding:15px 16px;background:#101013;border:1px solid rgba(255,255,255,.16);color:#f4f3f1;font-family:'Space Mono',monospace;font-size:14px;outline:none;}
+.jtr-field:focus{border-color:var(--accent,#d81222);}
+.jtr-rte{font-size:15.5px;line-height:1.7;color:#c2c2c8;}
+.jtr-rte a{color:var(--accent,#d81222);text-decoration:underline;}
+.jtr-rte h1,.jtr-rte h2,.jtr-rte h3{font-family:'Archivo Black',sans-serif;text-transform:uppercase;color:#f4f3f1;}
+
+/* ---------- grids used by sections ---------- */
+.jtr-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.jtr-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.jtr-two-up{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.jtr-feat-vehicle{display:grid;grid-template-columns:1.1fr .9fr;gap:0;}
+.jtr-newsletter-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.jtr-footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;}
+
+/* ---------- mobile nav ---------- */
+.jtr-burger{display:none;}
+.jtr-mobilemenu{display:none;}
+
+/* ---------- responsive ---------- */
+@media (max-width:1024px){
+  .jtr-grid-4{grid-template-columns:repeat(2,1fr);}
+  .jtr-grid-3{grid-template-columns:repeat(2,1fr);}
+  .jtr-feat-vehicle{grid-template-columns:1fr;}
+  .jtr-newsletter-grid{grid-template-columns:1fr;}
+  .jtr-footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:760px){
+  .jtr-wrap{padding:0 22px;}
+  .jtr-two-up{grid-template-columns:1fr;}
+  .jtr-grid-4{grid-template-columns:1fr 1fr;}
+  .jtr-grid-3{grid-template-columns:1fr;}
+  .jtr-footer-grid{grid-template-columns:1fr 1fr;}
+  .jtr-nav-links{display:none!important;}
+  .jtr-burger{display:flex!important;}
+  .jtr-pad{padding-left:22px!important;padding-right:22px!important;}
+}
+@media (max-width:480px){
+  .jtr-grid-4{grid-template-columns:1fr;}
+  .jtr-footer-grid{grid-template-columns:1fr;}
+}
+
+/* open mobile menu via :target */
+.jtr-mobilemenu:target{display:block;}

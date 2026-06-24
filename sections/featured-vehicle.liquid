@@ -1,0 +1,71 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+{%- assign p = all_products[section.settings.product] -%}
+{%- if p != blank and p != empty -%}
+  {%- assign v_img = p.featured_image | image_url: width: 1500 -%}
+  {%- assign v_title = p.title -%}
+  {%- assign v_url = p.url -%}
+  {%- assign v_desc = p.description | strip_html | truncatewords: 48 -%}
+  {%- assign v_available = p.available -%}
+  {%- assign v_code = p.metafields.custom.chassis -%}
+{%- else -%}
+  {%- assign v_img = section.settings.image | image_url: width: 1500 -%}
+  {%- assign v_title = section.settings.fallback_title -%}
+  {%- assign v_url = section.settings.button_url -%}
+  {%- assign v_desc = section.settings.fallback_text -%}
+  {%- assign v_available = false -%}
+  {%- assign v_code = section.settings.fallback_code -%}
+{%- endif -%}
+
+<section id="{{ section.settings.anchor | default: 'garage' }}" class="jtr-wrap" style="padding:40px 40px 80px;">
+  <div class="jtr-feat jtr-reveal jtr-feat-vehicle" style="border:1px solid rgba(255,255,255,.1);overflow:hidden;">
+    <div style="position:relative;min-height:440px;background:repeating-linear-gradient(135deg,#121215 0 18px,#0d0d10 18px 36px);overflow:hidden;">
+      {%- if v_img != blank -%}<img class="jtr-grow" src="{{ v_img }}" alt="{{ v_title | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">{%- endif -%}
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(13,13,16,.4));"></div>
+      {%- if v_available -%}
+        <span style="position:absolute;top:18px;left:18px;padding:6px 12px;background:{{ accent }};color:#0a0a0b;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;">FOR SALE</span>
+      {%- else -%}
+        <span style="position:absolute;top:18px;left:18px;padding:6px 12px;background:#0a0a0b;border:1px solid {{ accent }};color:{{ accent }};font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;">{{ section.settings.sold_label }}</span>
+      {%- endif -%}
+    </div>
+    <div style="padding:48px 44px;position:relative;border-top:3px solid {{ accent }};background:radial-gradient(120% 90% at 100% 0%, rgba(216,18,34,.12), transparent 55%), #0d0d10;display:flex;flex-direction:column;justify-content:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:{{ accent }};margin-bottom:16px;">{{ section.settings.eyebrow }}</div>
+      <h2 style="margin:0 0 18px;font-family:'Archivo Black',sans-serif;font-size:clamp(30px,3.6vw,46px);line-height:.95;text-transform:uppercase;letter-spacing:-.02em;">{{ v_title }}</h2>
+      <p style="margin:0 0 26px;font-size:15.5px;line-height:1.6;color:#b6b6bd;max-width:460px;">{{ v_desc }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px;">
+        {%- assign chips = section.settings.chip1 | append: '|' | append: section.settings.chip2 | append: '|' | append: section.settings.chip3 | split: '|' -%}
+        {%- for c in chips -%}
+          {%- if c != blank -%}<span style="padding:7px 13px;border:1px solid rgba(255,255,255,.14);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#cfcfd6;">{{ c }}</span>{%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;">
+        <a href="{{ v_url }}" class="jtr-btn-fill" style="display:inline-flex;padding:14px 22px;background:{{ accent }};color:#0a0a0b;font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;">{{ section.settings.button_label }}</a>
+        <a href="{{ section.settings.button2_url | default: '#sale' }}" class="jtr-btn-ghost" style="display:inline-flex;padding:14px 22px;border:1px solid rgba(255,255,255,.22);color:#f4f3f1;font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;">{{ section.settings.button2_label }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured vehicle",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "garage" },
+    { "type": "product", "id": "product", "label": "Vehicle (product)", "info": "Pick a car product. Specs can come from a 'chassis' metafield." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Cars for Sale" },
+    { "type": "text", "id": "sold_label", "label": "Sold/unavailable label", "default": "SOLD" },
+    { "type": "text", "id": "chip1", "label": "Tag 1", "default": "Genuine history" },
+    { "type": "text", "id": "chip2", "label": "Tag 2", "default": "Inspection welcome" },
+    { "type": "text", "id": "chip3", "label": "Tag 3", "default": "Adelaide, SA" },
+    { "type": "text", "id": "button_label", "label": "Primary button label", "default": "View this car" },
+    { "type": "text", "id": "button2_label", "label": "Secondary button label", "default": "Cars for Sale" },
+    { "type": "url", "id": "button2_url", "label": "Secondary button link" },
+    { "type": "header", "content": "Fallback (when no product picked)" },
+    { "type": "image_picker", "id": "image", "label": "Fallback image" },
+    { "type": "text", "id": "fallback_title", "label": "Fallback title", "default": "1973 TA22 Toyota Celica LT" },
+    { "type": "textarea", "id": "fallback_text", "label": "Fallback text", "default": "A genuine slice of the golden era. Full service history, honest listing, real history, no surprises." },
+    { "type": "text", "id": "fallback_code", "label": "Fallback chassis code", "default": "TA22" },
+    { "type": "url", "id": "button_url", "label": "Fallback primary link" }
+  ],
+  "presets": [{ "name": "Featured vehicle" }]
+}
+{% endschema %}

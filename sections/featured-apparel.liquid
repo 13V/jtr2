@@ -1,0 +1,71 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+{%- assign coll = collections[section.settings.collection] -%}
+<section id="{{ section.settings.anchor | default: 'drop' }}" class="jtr-wrap" style="padding:80px 40px 40px;">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap;">
+    <div>
+      <div class="jtr-eyebrow" style="margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+      <h2 class="jtr-h2">{{ section.settings.heading }}</h2>
+    </div>
+    {%- if coll != blank -%}
+      <a href="{{ coll.url }}" class="jtr-link" style="display:inline-flex;align-items:center;gap:9px;padding-bottom:6px;border-bottom:1px solid {{ accent }};font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f4f3f1;">{{ section.settings.view_all_label }} →</a>
+    {%- endif -%}
+  </div>
+
+  <div class="jtr-grid-4">
+    {%- if coll != blank and coll.products.size > 0 -%}
+      {%- for product in coll.products limit: section.settings.count -%}
+        {%- assign img_a = product.featured_image -%}
+        {%- assign img_b = product.images[1] -%}
+        <a href="{{ product.url }}" data-tags="{{ product.tags | join: ' ' | downcase }}" class="jtr-pcard jtr-reveal" style="display:block;border:1px solid rgba(255,255,255,.08);background:#101013;">
+          <div style="position:relative;aspect-ratio:1/1;overflow:hidden;background:#15151a;">
+            {%- if img_a -%}<img class="jtr-pa" src="{{ img_a | image_url: width: 700 }}" alt="{{ product.title | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">{%- endif -%}
+            {%- if img_b -%}<img class="jtr-pb" src="{{ img_b | image_url: width: 700 }}" alt="{{ product.title | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">{%- endif -%}
+            {%- if product.tags contains 'new' or product.created_at > section.settings.new_after -%}
+              <span style="position:absolute;top:12px;left:12px;padding:4px 9px;background:{{ accent }};color:#0a0a0b;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;">NEW</span>
+            {%- endif -%}
+            {%- unless product.available -%}
+              <span style="position:absolute;top:12px;right:12px;padding:4px 9px;background:#0a0a0b;border:1px solid {{ accent }};color:{{ accent }};font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;">SOLD OUT</span>
+            {%- endunless -%}
+          </div>
+          <div style="padding:16px 16px 18px;">
+            <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:#8a8a92;text-transform:uppercase;">{{ product.type | default: product.vendor }}</div>
+            <h3 style="margin:7px 0 12px;font-family:'Archivo',sans-serif;font-weight:700;font-size:16.5px;">{{ product.title }}</h3>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-family:'Archivo Black',sans-serif;font-size:17px;">{{ product.price | money }}</span>
+              <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;color:{{ accent }};">VIEW →</span>
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..4) -%}
+        <div class="jtr-pcard" style="border:1px solid rgba(255,255,255,.08);background:#101013;">
+          <div style="aspect-ratio:1/1;background:repeating-linear-gradient(135deg,#15151a 0 14px,#101013 14px 28px);display:grid;place-items:center;">
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#6b6b73;letter-spacing:.1em;text-transform:uppercase;">Product</span>
+          </div>
+          <div style="padding:16px;">
+            <div style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a92;text-transform:uppercase;">Apparel</div>
+            <h3 style="margin:7px 0 12px;font-weight:700;font-size:16.5px;">Connect a collection</h3>
+            <div style="display:flex;justify-content:space-between;"><span style="font-family:'Archivo Black',sans-serif;">$70</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:{{ accent }};">VIEW →</span></div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured apparel",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "drop" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Latest Drop" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Fresh Off the Line" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Pick the apparel collection. Tag products with chassis codes (r32, r34, ae86, s15…) so the chassis filter works." },
+    { "type": "range", "id": "count", "min": 2, "max": 12, "step": 1, "label": "Products to show", "default": 4 },
+    { "type": "text", "id": "view_all_label", "label": "View-all label", "default": "View all apparel" },
+    { "type": "text", "id": "new_after", "label": "Show NEW badge for items created after", "info": "Format: 2026-01-01", "default": "2099-01-01" }
+  ],
+  "presets": [{ "name": "Featured apparel" }]
+}
+{% endschema %}

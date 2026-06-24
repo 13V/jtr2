@@ -1,0 +1,17 @@
+{
+  "current": {
+    "accent_color": "#d81222",
+    "bg_color": "#0a0a0b",
+    "text_color": "#f4f3f1",
+    "instagram_url": "https://www.instagram.com/jtrgarage",
+    "tiktok_url": "https://www.tiktok.com/@jtrgarage",
+    "youtube_url": "https://www.youtube.com/@jtrgarage"
+  },
+  "presets": {
+    "JT-R Garage": {
+      "accent_color": "#d81222",
+      "bg_color": "#0a0a0b",
+      "text_color": "#f4f3f1"
+    }
+  }
+}

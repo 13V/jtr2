@@ -1,0 +1,22 @@
+<section class="jtr-wrap" style="padding:60px 40px 80px;min-height:50vh;">
+  <div class="jtr-eyebrow" style="margin-bottom:14px;">{{ blog.title }}</div>
+  <h1 class="jtr-h2" style="margin-bottom:40px;">Journal</h1>
+  <div class="jtr-grid-3">
+    {%- for article in blog.articles -%}
+      <a href="{{ article.url }}" class="jtr-feat jtr-reveal" style="display:block;border:1px solid rgba(255,255,255,.08);background:#101013;overflow:hidden;">
+        {%- if article.image -%}
+          <div style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#15151a;">
+            <img class="jtr-grow" src="{{ article.image | image_url: width: 900 }}" alt="{{ article.title | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+        {%- endif -%}
+        <div style="padding:22px;">
+          <div style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a92;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">{{ article.published_at | date: '%d %b %Y' }}</div>
+          <h3 style="margin:0 0 8px;font-family:'Archivo Black',sans-serif;font-size:20px;text-transform:uppercase;">{{ article.title }}</h3>
+          <p style="margin:0;font-size:14px;color:#9a9aa2;line-height:1.55;">{{ article.excerpt_or_content | strip_html | truncatewords: 22 }}</p>
+        </div>
+      </a>
+    {%- else -%}
+      <p class="jtr-rte">No posts yet.</p>
+    {%- endfor -%}
+  </div>
+</section>

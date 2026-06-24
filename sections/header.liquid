@@ -1,0 +1,51 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+{%- if section.settings.logo != blank -%}
+  {%- assign logo_url = section.settings.logo | image_url: width: 400 -%}
+{%- else -%}
+  {%- assign logo_url = 'jtr-logo.png' | asset_url -%}
+{%- endif -%}
+
+<nav class="jtr-nav jtr-pad" style="position:sticky;top:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(10,10,11,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);">
+  <a href="{{ routes.root_url }}" style="display:flex;align-items:center;">
+    <img src="{{ logo_url }}" alt="{{ shop.name }}" style="height:{{ section.settings.logo_height }}px;width:auto;display:block;">
+  </a>
+
+  <div class="jtr-nav-links" style="display:flex;align-items:center;gap:34px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#a7a7af;">
+    {%- for link in section.settings.menu.links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+  </div>
+
+  <div style="display:flex;align-items:center;gap:14px;">
+    <a href="{{ routes.cart_url }}" style="display:flex;align-items:center;gap:9px;padding:9px 16px;border:1px solid rgba(255,255,255,.18);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f4f3f1;">
+      Bag <span style="display:grid;place-items:center;min-width:20px;height:20px;padding:0 5px;background:{{ accent }};color:#0a0a0b;border-radius:2px;font-size:11px;">{{ cart.item_count }}</span>
+    </a>
+    <a href="#jtr-mobile" class="jtr-burger" aria-label="Open menu" style="display:none;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid rgba(255,255,255,.18);color:#f4f3f1;font-size:18px;">≡</a>
+  </div>
+
+  <div data-progress aria-hidden="true" style="position:absolute;left:0;right:0;bottom:-1px;height:2px;transform:scaleX(0);transform-origin:left;background:{{ accent }};box-shadow:0 0 12px rgba(216,18,34,.6);pointer-events:none;"></div>
+</nav>
+
+<!-- mobile menu -->
+<div id="jtr-mobile" class="jtr-mobilemenu" style="position:fixed;inset:0;z-index:1000;background:#0a0a0b;padding:30px 24px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;">
+    <img src="{{ logo_url }}" alt="{{ shop.name }}" style="height:38px;width:auto;">
+    <a href="#" aria-label="Close menu" style="font-size:26px;color:#f4f3f1;width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);">×</a>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;">
+    {%- for link in section.settings.menu.links -%}
+      <a href="{{ link.url }}" style="font-family:'Archivo Black',sans-serif;text-transform:uppercase;font-size:30px;letter-spacing:-.01em;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08);color:#f4f3f1;">{{ link.title }}</a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Defaults to the JT-R Garage logo bundled with the theme." },
+    { "type": "range", "id": "logo_height", "min": 28, "max": 70, "step": 2, "unit": "px", "label": "Logo height", "default": 42 },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

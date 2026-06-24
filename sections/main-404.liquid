@@ -1,0 +1,10 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+<section class="jtr-wrap" style="padding:120px 40px;min-height:60vh;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+  <div style="font-family:'Archivo Black',sans-serif;font-size:clamp(80px,18vw,200px);line-height:.8;color:{{ accent }};letter-spacing:-.04em;">404</div>
+  <h1 style="margin:24px 0 14px;font-family:'Archivo Black',sans-serif;font-size:clamp(24px,4vw,40px);text-transform:uppercase;letter-spacing:-.02em;">Took a wrong turn</h1>
+  <p class="jtr-rte" style="margin:0 0 30px;">That page spun off the touge. Let's get you back on the line.</p>
+  <a href="{{ routes.root_url }}" class="jtr-btn-fill" style="display:inline-flex;padding:16px 26px;background:{{ accent }};color:#0a0a0b;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;">Back home →</a>
+</section>
+{% schema %}
+{ "name": "404", "settings": [] }
+{% endschema %}

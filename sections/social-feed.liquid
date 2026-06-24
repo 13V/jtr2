@@ -1,0 +1,110 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+<section id="{{ section.settings.anchor | default: 'feed' }}" style="position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);">
+  <div aria-hidden="true" style="position:absolute;left:-3vw;bottom:-12%;font-family:'Archivo Black',sans-serif;font-size:24vw;line-height:.8;color:rgba(255,255,255,.022);letter-spacing:-.04em;user-select:none;white-space:nowrap;">@JTR</div>
+  <div style="position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:80px 40px;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:42px;flex-wrap:wrap;">
+      <div>
+        <div class="jtr-eyebrow" style="margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+        <h2 class="jtr-h2" style="font-size:clamp(34px,5vw,64px);">{{ section.settings.heading_line1 }}<br>{{ section.settings.heading_line2 }}</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;min-width:240px;">
+        {%- if settings.instagram_url != blank -%}
+        <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener" class="jtr-social-btn" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 20px;border:1px solid rgba(255,255,255,.16);background:rgba(20,20,23,.6);">
+          <span style="display:flex;align-items:center;gap:12px;">
+            <span style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#f9ce34,#ee2a7b 50%,#6228d7);display:block;"></span>
+            <span style="display:flex;flex-direction:column;line-height:1.25;">
+              <span style="font-family:'Archivo Black',sans-serif;font-size:13px;letter-spacing:.02em;">Instagram</span>
+              <span style="font-family:'Space Mono',monospace;font-size:10.5px;color:#8a8a92;letter-spacing:.04em;">{{ section.settings.ig_handle }} · {{ section.settings.ig_followers }}</span>
+            </span>
+          </span>
+          <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{ accent }};">Follow →</span>
+        </a>
+        {%- endif -%}
+        {%- if settings.tiktok_url != blank -%}
+        <a href="{{ settings.tiktok_url }}" target="_blank" rel="noopener" class="jtr-social-btn" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 20px;border:1px solid rgba(255,255,255,.16);background:rgba(20,20,23,.6);">
+          <span style="display:flex;align-items:center;gap:12px;">
+            <span style="width:30px;height:30px;border-radius:8px;background:#0a0a0b;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;">
+              <span style="width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:9px solid #fff;margin-left:2px;"></span>
+            </span>
+            <span style="display:flex;flex-direction:column;line-height:1.25;">
+              <span style="font-family:'Archivo Black',sans-serif;font-size:13px;letter-spacing:.02em;">TikTok</span>
+              <span style="font-family:'Space Mono',monospace;font-size:10.5px;color:#8a8a92;letter-spacing:.04em;">{{ section.settings.tiktok_handle }} · {{ section.settings.tiktok_followers }}</span>
+            </span>
+          </span>
+          <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{ accent }};">Follow →</span>
+        </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="jtr-grid-3" style="gap:16px;">
+      {%- for block in section.blocks -%}
+        {%- assign is_tiktok = false -%}
+        {%- if block.settings.platform == 'tiktok' -%}{%- assign is_tiktok = true -%}{%- endif -%}
+        {%- if is_tiktok -%}{%- assign link = block.settings.url | default: settings.tiktok_url -%}{%- else -%}{%- assign link = block.settings.url | default: settings.instagram_url -%}{%- endif -%}
+        <a href="{{ link }}" target="_blank" rel="noopener" class="jtr-feat jtr-tile jtr-reveal" {{ block.shopify_attributes }} style="position:relative;display:block;aspect-ratio:1/1;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#15151a;">
+          {%- if block.settings.image != blank -%}
+            <img class="jtr-grow" src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.caption | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          {%- else -%}
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#15151a 0 14px,#101013 14px 28px);display:grid;place-items:center;"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#6b6b73;letter-spacing:.1em;text-transform:uppercase;">Add image</span></div>
+          {%- endif -%}
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,11,.35),transparent 35%,rgba(10,10,11,.7));"></div>
+          <span style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;color:#fff;">
+            {%- if is_tiktok -%}
+              <span style="width:14px;height:14px;border-radius:4px;background:#0a0a0b;border:1px solid rgba(255,255,255,.5);"></span>TikTok
+            {%- else -%}
+              <span style="width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#f9ce34,#ee2a7b 50%,#6228d7);"></span>IG
+            {%- endif -%}
+          </span>
+          {%- if is_tiktok -%}
+            <span class="jtr-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:rgba(10,10,11,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1.5px solid rgba(255,255,255,.7);display:grid;place-items:center;"><span style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:4px;"></span></span>
+          {%- endif -%}
+          <span class="jtr-meta" style="position:absolute;left:16px;right:16px;bottom:14px;display:flex;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.04em;color:#e6e6ea;"><span>{{ block.settings.caption }}</span><span>{{ block.settings.stat }}</span></span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Social feed",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "feed" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Follow the Build // @jtrgarage" },
+    { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "Cars & Culture," },
+    { "type": "text", "id": "heading_line2", "label": "Heading line 2", "default": "Daily" },
+    { "type": "header", "content": "Follow buttons" },
+    { "type": "text", "id": "ig_handle", "label": "Instagram handle", "default": "@jtrgarage" },
+    { "type": "text", "id": "ig_followers", "label": "Instagram followers", "default": "18.4k" },
+    { "type": "text", "id": "tiktok_handle", "label": "TikTok handle", "default": "@jtrgarage" },
+    { "type": "text", "id": "tiktok_followers", "label": "TikTok followers", "default": "41.2k" },
+    { "type": "paragraph", "content": "Instagram & TikTok profile links are set in Theme settings → Brand." }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Post",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image / thumbnail" },
+        { "type": "select", "id": "platform", "label": "Platform", "options": [ { "value": "instagram", "label": "Instagram" }, { "value": "tiktok", "label": "TikTok" } ], "default": "instagram" },
+        { "type": "text", "id": "caption", "label": "Caption", "default": "New drop just landed" },
+        { "type": "text", "id": "stat", "label": "Stat (likes / views)", "default": "♥ 2,481" },
+        { "type": "url", "id": "url", "label": "Post link", "info": "Defaults to your profile if blank." }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "default": {
+    "blocks": [
+      { "type": "post", "settings": { "platform": "instagram", "caption": "R34 in for detailing 🔥", "stat": "♥ 2,481" } },
+      { "type": "post", "settings": { "platform": "tiktok", "caption": "2JZ cold start", "stat": "▶ 88.2k" } },
+      { "type": "post", "settings": { "platform": "instagram", "caption": "New drop just landed", "stat": "♥ 3,902" } },
+      { "type": "post", "settings": { "platform": "tiktok", "caption": "S15 touge run", "stat": "▶ 156k" } },
+      { "type": "post", "settings": { "platform": "instagram", "caption": "AUDM muscle, just in", "stat": "♥ 1,756" } },
+      { "type": "post", "settings": { "platform": "tiktok", "caption": "50yr-old TA22 restomod", "stat": "▶ 224k" } }
+    ]
+  },
+  "presets": [{ "name": "Social feed" }]
+}
+{% endschema %}

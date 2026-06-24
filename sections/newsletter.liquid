@@ -1,0 +1,41 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+<section id="{{ section.settings.anchor | default: 'join' }}" style="background:{{ accent }};color:#0a0a0b;overflow:hidden;position:relative;">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 60px,rgba(0,0,0,.04) 60px 61px);"></div>
+  <div class="jtr-newsletter-grid jtr-pad" style="position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:70px 40px;">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+      <h2 style="margin:0;font-family:'Archivo Black',sans-serif;font-size:clamp(34px,5vw,64px);line-height:.9;text-transform:uppercase;letter-spacing:-.02em;">{{ section.settings.heading_line1 }}<br>{{ section.settings.heading_line2 }}</h2>
+    </div>
+    <div>
+      <p style="margin:0 0 22px;font-size:16px;line-height:1.55;max-width:440px;font-weight:500;">{{ section.settings.text }}</p>
+      {%- form 'customer' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}
+          <p style="font-family:'Space Mono',monospace;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px;">You're on the list. Welcome to the crew.</p>
+        {%- endif -%}
+        <div style="display:flex;gap:0;border:2px solid #0a0a0b;max-width:480px;">
+          <input type="email" name="contact[email]" required placeholder="{{ section.settings.placeholder }}" style="flex:1;min-width:0;padding:16px 18px;border:none;outline:none;background:transparent;color:#0a0a0b;font-family:'Space Mono',monospace;font-size:14px;">
+          <button type="submit" style="padding:16px 30px;border:none;background:#0a0a0b;color:{{ accent }};font-family:'Archivo Black',sans-serif;font-size:14px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;">{{ section.settings.button_label }}</button>
+        </div>
+      {%- endform -%}
+      <p style="margin:14px 0 0;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.04em;opacity:.7;">{{ section.settings.disclaimer }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "join" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Join the Crew" },
+    { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "Get the Drop" },
+    { "type": "text", "id": "heading_line2", "label": "Heading line 2", "default": "Before Anyone Else" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "New arrivals, fresh stock and limited streetwear drops — straight to your inbox. No spam, just cars and culture worth your time." },
+    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "your@email.com" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Join" },
+    { "type": "text", "id": "disclaimer", "label": "Disclaimer", "default": "By joining you agree to receive marketing emails. Unsubscribe anytime." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

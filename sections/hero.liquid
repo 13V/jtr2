@@ -1,0 +1,81 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+{%- if section.settings.image != blank -%}
+  {%- assign hero_img = section.settings.image | image_url: width: 2000 -%}
+{%- else -%}
+  {%- assign hero_img = '' -%}
+{%- endif -%}
+
+<header id="top" class="jtr-hero" style="position:relative;min-height:{{ section.settings.height }}vh;overflow:hidden;display:flex;flex-direction:column;background:#0a0a0b;">
+  {%- if hero_img != blank -%}
+    <div data-px-mouse="-12" aria-hidden="true" style="position:absolute;inset:-5%;z-index:0;will-change:transform;">
+      <img src="{{ hero_img }}" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 62%;animation:jtr-ken 22s ease-in-out infinite alternate;">
+    </div>
+  {%- endif -%}
+
+  <div aria-hidden="true" style="position:absolute;inset:0;z-index:1;background:linear-gradient(96deg, rgba(10,10,11,.95) 6%, rgba(10,10,11,.6) 40%, rgba(10,10,11,.12) 68%, rgba(10,10,11,.5) 100%);"></div>
+  <div aria-hidden="true" style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(10,10,11,.82) 0%, transparent 20%, transparent 40%, rgba(10,10,11,.98) 95%);"></div>
+  <div aria-hidden="true" data-px-mouse="-7" style="position:absolute;inset:0;z-index:1;opacity:.26;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:58px 58px;animation:jtr-bg 6s linear infinite;-webkit-mask-image:radial-gradient(120% 95% at 48% 38%,#000,transparent 82%);mask-image:radial-gradient(120% 95% at 48% 38%,#000,transparent 82%);"></div>
+  <div aria-hidden="true" style="position:absolute;z-index:1;bottom:-14%;left:-7%;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle, rgba(216,18,34,.32), transparent 62%);filter:blur(54px);animation:jtr-glow 5s ease-in-out infinite;pointer-events:none;"></div>
+  <div aria-hidden="true" style="position:absolute;z-index:1;inset:0;overflow:hidden;pointer-events:none;">
+    <span style="position:absolute;top:30%;left:0;width:34%;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55));animation:jtr-streak 4.6s linear 1.2s infinite;"></span>
+    <span style="position:absolute;top:58%;left:0;width:24%;height:2px;background:linear-gradient(90deg,transparent,{{ accent }});animation:jtr-streak 5.4s linear infinite;"></span>
+  </div>
+
+  <div class="jtr-pad" style="position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:36px 40px 0;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#cfcfd6;">
+      <span style="width:30px;height:1px;background:{{ accent }};"></span>
+      {{ section.settings.kicker_left }}
+    </div>
+    {%- if section.settings.kicker_right != blank -%}
+      <div style="display:flex;align-items:center;gap:9px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#cfcfd6;">
+        <span style="width:9px;height:9px;border-radius:50%;background:{{ accent }};animation:jtr-rec 1.3s steps(1) infinite;"></span> {{ section.settings.kicker_right }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="jtr-pad" style="position:relative;z-index:3;margin-top:auto;width:100%;max-width:1320px;margin-left:auto;margin-right:auto;padding:40px 40px 30px;">
+    <div style="max-width:640px;">
+      {%- if section.settings.eyebrow != blank -%}
+        <div style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#9a9aa2;margin-bottom:18px;">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h1 style="margin:0;font-family:'Archivo Black',sans-serif;font-size:clamp(54px,9.4vw,152px);line-height:.82;letter-spacing:-.035em;text-transform:uppercase;">
+        <span class="jtr-chrome" style="display:block;">{{ section.settings.line1 }}</span>
+        <span style="display:block;-webkit-text-stroke:1.4px rgba(255,255,255,.85);color:transparent;">{{ section.settings.line2 }}</span>
+        <span style="display:block;color:{{ accent }};">{{ section.settings.line3 }}</span>
+      </h1>
+      {%- if section.settings.subtext != blank -%}
+        <p style="max-width:440px;margin:26px 0 0;font-size:16.5px;line-height:1.6;color:#c2c2c8;">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;">
+        {%- if section.settings.btn1_label != blank -%}
+          <a href="{{ section.settings.btn1_url }}" class="jtr-btn-fill" style="display:inline-flex;align-items:center;gap:10px;padding:16px 26px;background:{{ accent }};color:#0a0a0b;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;">{{ section.settings.btn1_label }} →</a>
+        {%- endif -%}
+        {%- if section.settings.btn2_label != blank -%}
+          <a href="{{ section.settings.btn2_url }}" class="jtr-btn-ghost" style="display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border:1px solid rgba(255,255,255,.28);color:#f4f3f1;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;background:rgba(10,10,11,.25);">{{ section.settings.btn2_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image", "info": "Wide car photo works best." },
+    { "type": "range", "id": "height", "min": 70, "max": 100, "step": 2, "unit": "vh", "label": "Height", "default": 92 },
+    { "type": "text", "id": "kicker_left", "label": "Top-left kicker", "default": "Adelaide · SA // JDM × AUDM // Est. 2026" },
+    { "type": "text", "id": "kicker_right", "label": "Top-right kicker", "default": "Live feed · BNR34" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Cars & culture // straight outta South Australia" },
+    { "type": "text", "id": "line1", "label": "Headline line 1 (chrome)", "default": "Built" },
+    { "type": "text", "id": "line2", "label": "Headline line 2 (outline)", "default": "For the" },
+    { "type": "text", "id": "line3", "label": "Headline line 3 (red)", "default": "Scene." },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Genuine JDM & AUDM legends — Skylines, GT-Rs, HSVs — and the streetwear to match. Built by enthusiasts, for enthusiasts." },
+    { "type": "text", "id": "btn1_label", "label": "Button 1 label", "default": "Shop the Drop" },
+    { "type": "url", "id": "btn1_url", "label": "Button 1 link" },
+    { "type": "text", "id": "btn2_label", "label": "Button 2 label", "default": "Browse the Garage" },
+    { "type": "url", "id": "btn2_url", "label": "Button 2 link" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

@@ -1,0 +1,84 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+{%- assign coll = collections[section.settings.collection] -%}
+<section id="{{ section.settings.anchor | default: 'sale' }}" class="jtr-wrap" style="padding:40px 40px 70px;">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap;">
+    <div>
+      <div class="jtr-eyebrow" style="margin-bottom:14px;">{{ section.settings.eyebrow }}</div>
+      <h2 class="jtr-h2">{{ section.settings.heading }}</h2>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      {%- if coll != blank -%}<span style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#8a8a92;">{{ coll.products_count }} in stock · {{ section.settings.location }}</span>{%- endif -%}
+      {%- if section.settings.sell_label != blank -%}<a href="{{ section.settings.sell_url }}" class="jtr-link" style="display:inline-flex;align-items:center;gap:9px;padding-bottom:6px;border-bottom:1px solid {{ accent }};font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f4f3f1;">{{ section.settings.sell_label }} →</a>{%- endif -%}
+    </div>
+  </div>
+
+  <div class="jtr-grid-3">
+    {%- if coll != blank and coll.products.size > 0 -%}
+      {%- for product in coll.products limit: section.settings.count -%}
+        {%- assign code = product.metafields.custom.chassis -%}
+        {%- assign yr = product.metafields.custom.year -%}
+        {%- assign km = product.metafields.custom.mileage -%}
+        {%- assign eng = product.metafields.custom.engine -%}
+        {%- assign note = product.metafields.custom.note -%}
+        <a href="{{ product.url }}" class="jtr-feat jtr-reveal" style="display:block;border:1px solid rgba(255,255,255,.08);background:#101013;overflow:hidden;">
+          <div style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#15151a;">
+            {%- if product.featured_image -%}<img class="jtr-grow" src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.title | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;{% unless product.available %}filter:grayscale(.15);{% endunless %}">{%- endif -%}
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(10,10,11,.78));"></div>
+            {%- if product.available -%}
+              <span style="position:absolute;top:12px;left:12px;padding:5px 10px;background:{{ accent }};color:#0a0a0b;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;">FOR SALE</span>
+            {%- else -%}
+              <span style="position:absolute;top:12px;left:12px;padding:5px 10px;background:#0a0a0b;border:1px solid {{ accent }};color:{{ accent }};font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;">SOLD</span>
+            {%- endif -%}
+            {%- if code != blank -%}<span style="position:absolute;top:12px;right:12px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.75);">{{ code }}</span>{%- endif -%}
+          </div>
+          <div style="padding:18px 18px 20px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+              <h3 style="margin:0;font-family:'Archivo Black',sans-serif;font-size:18px;text-transform:uppercase;letter-spacing:-.01em;{% unless product.available %}color:#cfcfd6;{% endunless %}">{{ product.title }}</h3>
+              <span style="font-family:'Archivo Black',sans-serif;font-size:18px;white-space:nowrap;{% if product.available %}color:{{ accent }};{% else %}color:#6b6b73;text-decoration:line-through;{% endif %}">{{ product.price | money }}</span>
+            </div>
+            {%- if yr != blank or km != blank or eng != blank -%}
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
+              {%- if yr != blank -%}<span style="padding:6px 11px;border:1px solid rgba(255,255,255,.13);font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.05em;color:#cfcfd6;">{{ yr }}</span>{%- endif -%}
+              {%- if km != blank -%}<span style="padding:6px 11px;border:1px solid rgba(255,255,255,.13);font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.05em;color:#cfcfd6;">{{ km }}</span>{%- endif -%}
+              {%- if eng != blank -%}<span style="padding:6px 11px;border:1px solid rgba(255,255,255,.13);font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.05em;color:#cfcfd6;">{{ eng }}</span>{%- endif -%}
+            </div>
+            {%- endif -%}
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);">
+              <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#8a8a92;">{{ note | default: product.vendor }}</span>
+              <span class="jtr-link" style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{% if product.available %}{{ accent }}{% else %}#6b6b73{% endif %};">{% if product.available %}View listing →{% else %}Archived{% endif %}</span>
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..3) -%}
+        <div class="jtr-feat" style="border:1px solid rgba(255,255,255,.08);background:#101013;overflow:hidden;">
+          <div style="aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#15151a 0 16px,#101013 16px 32px);display:grid;place-items:center;">
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#6b6b73;letter-spacing:.1em;text-transform:uppercase;">Car listing</span>
+          </div>
+          <div style="padding:18px;">
+            <h3 style="margin:0;font-family:'Archivo Black',sans-serif;font-size:18px;text-transform:uppercase;">Connect your Cars collection</h3>
+            <p style="margin:10px 0 0;font-size:13px;color:#8a8a92;">Add car products to a collection and pick it in this section.</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cars for sale",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "sale" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Garage // Cars for Sale" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "In the Garage Now" },
+    { "type": "collection", "id": "collection", "label": "Cars collection", "info": "Create a 'Cars' collection of car products. Add metafields under namespace 'custom': chassis, year, mileage, engine, note." },
+    { "type": "range", "id": "count", "min": 3, "max": 12, "step": 1, "label": "Cars to show", "default": 6 },
+    { "type": "text", "id": "location", "label": "Location", "default": "Adelaide, SA" },
+    { "type": "text", "id": "sell_label", "label": "Sell-your-car label", "default": "Sell your car" },
+    { "type": "url", "id": "sell_url", "label": "Sell-your-car link" }
+  ],
+  "presets": [{ "name": "Cars for sale" }]
+}
+{% endschema %}

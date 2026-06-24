@@ -1,0 +1,65 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "JT-R Garage",
+    "theme_version": "1.0.0",
+    "theme_author": "JT-R Garage",
+    "theme_documentation_url": "https://www.jtr-garage.com",
+    "theme_support_url": "https://www.jtr-garage.com"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Accent (logo red)",
+        "default": "#d81222"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background",
+        "default": "#0a0a0b"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#f4f3f1"
+      }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "header",
+        "content": "Social links"
+      },
+      {
+        "type": "url",
+        "id": "instagram_url",
+        "label": "Instagram URL",
+        "default": "https://www.instagram.com/jtrgarage"
+      },
+      {
+        "type": "url",
+        "id": "tiktok_url",
+        "label": "TikTok URL",
+        "default": "https://www.tiktok.com/@jtrgarage"
+      },
+      {
+        "type": "url",
+        "id": "youtube_url",
+        "label": "YouTube URL",
+        "default": "https://www.youtube.com/@jtrgarage"
+      }
+    ]
+  }
+]

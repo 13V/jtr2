@@ -1,0 +1,53 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+<section id="{{ section.settings.anchor | default: 'streetwear' }}" class="jtr-wrap jtr-two-up" style="padding:30px 40px 10px;">
+  {%- for block in section.blocks -%}
+    {%- if block.settings.image != blank -%}
+      {%- assign img = block.settings.image | image_url: width: 1100 -%}
+    {%- else -%}
+      {%- assign img = '' -%}
+    {%- endif -%}
+    <a href="{{ block.settings.link }}" class="jtr-feat jtr-reveal" {{ block.shopify_attributes }} style="position:relative;overflow:hidden;aspect-ratio:1/1;border:1px solid rgba(255,255,255,.08);background:repeating-linear-gradient(135deg,#111114 0 16px,#0d0d10 16px 32px);display:block;">
+      {%- if img != blank -%}
+        <img class="jtr-grow" src="{{ img }}" alt="{{ block.settings.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      {%- endif -%}
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(10,10,11,.92));"></div>
+      <span style="position:absolute;top:18px;left:18px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.18em;color:#cfcfd6;">{{ block.settings.label }}</span>
+      <div style="position:absolute;left:26px;right:26px;bottom:24px;">
+        <h3 style="margin:0 0 8px;font-family:'Archivo Black',sans-serif;font-size:30px;text-transform:uppercase;letter-spacing:-.01em;">{{ block.settings.title }}</h3>
+        <p style="margin:0 0 14px;max-width:380px;font-size:14.5px;line-height:1.55;color:#bfbfc6;">{{ block.settings.text }}</p>
+        <span class="jtr-link" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{ accent }};">{{ block.settings.cta }} →</span>
+      </div>
+    </a>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Feature split",
+  "max_blocks": 2,
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "streetwear" }
+  ],
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Panel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Small label", "default": "01 / Streetwear" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Streetwear" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Japanese-inspired gear designed by people who actually drive." },
+        { "type": "text", "id": "cta", "label": "Link label", "default": "Shop apparel" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "panel", "settings": { "label": "01 / Streetwear", "title": "Streetwear", "text": "Japanese-inspired gear designed by people who actually drive. Heavyweight cotton, limited drops, designs that earn a nod at the meet.", "cta": "Shop apparel" } },
+      { "type": "panel", "settings": { "label": "02 / Garage", "title": "The Garage", "text": "Hand-picked JDM & AUDM metal. Every car inspected, honestly listed, and ready to be enjoyed — not just owned.", "cta": "Browse vehicles" } }
+    ]
+  },
+  "presets": [{ "name": "Feature split" }]
+}
+{% endschema %}

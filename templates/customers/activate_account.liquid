@@ -1,0 +1,12 @@
+<section class="jtr-wrap" style="padding:60px 40px 80px;max-width:460px;min-height:50vh;">
+  <h1 class="jtr-h2" style="font-size:clamp(28px,4.5vw,46px);margin-bottom:30px;">Activate account</h1>
+  {%- form 'activate_customer_password' -%}
+    {{ form.errors | default_errors }}
+    <label class="jtr-eyebrow" style="display:block;color:#8a8a92;margin-bottom:8px;">Password</label>
+    <input type="password" name="customer[password]" class="jtr-field" style="margin-bottom:18px;">
+    <label class="jtr-eyebrow" style="display:block;color:#8a8a92;margin-bottom:8px;">Confirm password</label>
+    <input type="password" name="customer[password_confirmation]" class="jtr-field" style="margin-bottom:22px;">
+    <button type="submit" class="jtr-btn" style="width:100%;justify-content:center;">Activate</button>
+    <button type="submit" name="decline" class="jtr-btn-ghost" style="width:100%;justify-content:center;margin-top:12px;padding:16px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#f4f3f1;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;">Decline invitation</button>
+  {%- endform -%}
+</section>

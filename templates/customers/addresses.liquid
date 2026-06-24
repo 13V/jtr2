@@ -1,0 +1,11 @@
+<section class="jtr-wrap" style="padding:60px 40px 80px;min-height:50vh;max-width:640px;">
+  <h1 class="jtr-h2" style="font-size:clamp(28px,4.5vw,46px);margin-bottom:30px;">Addresses</h1>
+  <p style="margin-bottom:30px;"><a href="{{ routes.account_url }}" class="jtr-link" style="color:var(--accent,#d81222);font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em;">← Account</a></p>
+  {%- for address in customer.addresses -%}
+    <div style="border:1px solid rgba(255,255,255,.1);padding:20px;margin-bottom:14px;font-size:14px;line-height:1.6;color:#c2c2c8;">
+      {{ address | format_address }}
+    </div>
+  {%- else -%}
+    <p class="jtr-rte">No saved addresses.</p>
+  {%- endfor -%}
+</section>

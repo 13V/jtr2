@@ -1,0 +1,18 @@
+<section class="jtr-wrap" style="padding:60px 40px 80px;min-height:50vh;">
+  <h1 class="jtr-h2" style="font-size:clamp(28px,4.5vw,46px);margin-bottom:10px;">Order {{ order.name }}</h1>
+  <p style="font-family:'Space Mono',monospace;font-size:12px;color:#8a8a92;margin-bottom:30px;">{{ order.created_at | date: '%d %b %Y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+  <div style="border-top:1px solid rgba(255,255,255,.1);">
+    {%- for line in order.line_items -%}
+      <div style="display:grid;grid-template-columns:1fr auto auto;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14px;">
+        <span>{{ line.title }}</span>
+        <span style="font-family:'Space Mono',monospace;color:#8a8a92;">×{{ line.quantity }}</span>
+        <span style="font-family:'Archivo Black',sans-serif;">{{ line.final_line_price | money }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+  <div style="display:flex;justify-content:flex-end;gap:30px;margin-top:24px;font-family:'Space Mono',monospace;font-size:14px;">
+    <span style="text-transform:uppercase;letter-spacing:.1em;color:#8a8a92;">Total</span>
+    <span style="font-family:'Archivo Black',sans-serif;font-size:20px;">{{ order.total_price | money }}</span>
+  </div>
+  <p style="margin-top:30px;"><a href="{{ routes.account_url }}" class="jtr-link" style="color:var(--accent,#d81222);font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em;">← Back to account</a></p>
+</section>

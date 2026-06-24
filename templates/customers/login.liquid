@@ -1,0 +1,12 @@
+<section class="jtr-wrap" style="padding:60px 40px 80px;max-width:460px;min-height:50vh;">
+  <h1 class="jtr-h2" style="font-size:clamp(30px,5vw,52px);margin-bottom:30px;">Log in</h1>
+  {%- form 'customer_login' -%}
+    {{ form.errors | default_errors }}
+    <label class="jtr-eyebrow" style="display:block;color:#8a8a92;margin-bottom:8px;">Email</label>
+    <input type="email" name="customer[email]" class="jtr-field" style="margin-bottom:18px;">
+    <label class="jtr-eyebrow" style="display:block;color:#8a8a92;margin-bottom:8px;">Password</label>
+    <input type="password" name="customer[password]" class="jtr-field" style="margin-bottom:22px;">
+    <button type="submit" class="jtr-btn" style="width:100%;justify-content:center;">Log in</button>
+  {%- endform -%}
+  <p style="margin-top:20px;font-family:'Space Mono',monospace;font-size:12px;color:#8a8a92;">No account? <a href="{{ routes.account_register_url }}" style="color:var(--accent,#d81222);">Create one →</a></p>
+</section>

@@ -1,0 +1,23 @@
+<section class="jtr-wrap" style="padding:60px 40px 80px;min-height:50vh;">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:36px;flex-wrap:wrap;">
+    <h1 class="jtr-h2" style="font-size:clamp(30px,5vw,52px);">Account</h1>
+    <a href="{{ routes.account_logout_url }}" class="jtr-link" style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent,#d81222);">Log out →</a>
+  </div>
+  <p style="font-family:'Space Mono',monospace;font-size:13px;color:#9a9aa2;margin-bottom:30px;">{{ customer.name }} · {{ customer.email }} · <a href="{{ routes.account_addresses_url }}" style="color:var(--accent,#d81222);">Addresses</a></p>
+
+  <h2 style="font-family:'Archivo Black',sans-serif;text-transform:uppercase;font-size:20px;margin-bottom:18px;">Order history</h2>
+  {%- if customer.orders.size > 0 -%}
+    <div style="border-top:1px solid rgba(255,255,255,.1);">
+      {%- for order in customer.orders -%}
+        <a href="{{ order.customer_url }}" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.1);font-family:'Space Mono',monospace;font-size:13px;">
+          <span style="color:var(--accent,#d81222);">{{ order.name }}</span>
+          <span>{{ order.created_at | date: '%d %b %Y' }}</span>
+          <span>{{ order.financial_status_label }}</span>
+          <span style="text-align:right;">{{ order.total_price | money }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <p class="jtr-rte">No orders yet.</p>
+  {%- endif -%}
+</section>

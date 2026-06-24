@@ -1,0 +1,8 @@
+{%- assign accent = settings.accent_color | default: '#d81222' -%}
+<section class="jtr-wrap" style="padding:60px 40px 80px;min-height:50vh;">
+  <h1 class="jtr-h2" style="margin-bottom:30px;">{{ page.title }}</h1>
+  <div class="jtr-rte" style="max-width:760px;">{{ page.content }}</div>
+</section>
+{% schema %}
+{ "name": "Page", "settings": [] }
+{% endschema %}
