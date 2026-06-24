@@ -1,37 +1,13 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "sections": {
-    "hero": {
-      "type": "hero",
-      "settings": {
-        "kicker_left": "Adelaide · SA // JDM × AUDM // Est. 2026",
-        "kicker_right": "Live feed · BNR34",
-        "eyebrow": "Cars & culture // straight outta South Australia",
-        "line1": "Built",
-        "line2": "For the",
-        "line3": "Scene.",
-        "subtext": "Genuine JDM & AUDM legends — Skylines, GT-Rs, HSVs — and the streetwear to match. Built by enthusiasts, for enthusiasts.",
-        "btn1_label": "Shop the Drop",
-        "btn1_url": "#drop",
-        "btn2_label": "Browse the Garage",
-        "btn2_url": "#sale"
-      }
-    },
-    "feature_split": { "type": "feature-split" },
-    "featured_apparel": { "type": "featured-apparel" },
-    "chassis_filter": { "type": "chassis-filter" },
-    "featured_vehicle": { "type": "featured-vehicle" },
-    "cars_for_sale": { "type": "cars-for-sale" },
-    "social_feed": { "type": "social-feed" },
-    "newsletter": { "type": "newsletter" }
-  },
-  "order": [
-    "hero",
-    "feature_split",
-    "featured_apparel",
-    "chassis_filter",
-    "featured_vehicle",
-    "cars_for_sale",
-    "social_feed",
-    "newsletter"
-  ]
+  "sections": {},
+  "order": []
 }
